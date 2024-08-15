@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+#  app:
+#    build:
+#      context: .
+#      dockerfile: docker/DockerFile
+#    container_name: lt_app
+#    working_dir: /app/www/html
+#    restart: unless-stopped
+#    depends_on:
+#      postgres_lt:
+#        condition: service_healthy
+#    volumes:
+#      - .:/app/www/html
+#    dns:
+#      - 8.8.8.8
+#    networks:
+#      - LT_APP
+#    ports:
+#      - '8086:8086'
+#      - '8080:8080'
+
+  postgres_lt:
+    container_name: postgres_lt
+    build:
+      context: .
+      dockerfile: docker/DockerFile-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+    volumes:
+      - ~/.docker-stack/${APP_NAME}/postgresql:/var/lib/postgresql/data
+      - ./sql:/sql
+    healthcheck:
+      test: ['CMD-SHELL', "echo 'test'"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    ports:
+      - '5431:5431'
+    command: -p 5431
+    networks:
+      - LT_APP
+
+networks:
+  LT_APP:
+    driver: bridge
