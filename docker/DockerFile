@@ -1,0 +1,16 @@
+FROM node:20.10.0-alpine AS build
+
+WORKDIR var/www/html/
+
+COPY ../package.json yarn.lock  ./
+
+RUN yarn
+RUN yarn add @swc/core @swc/helpers --dev
+
+COPY .. ./
+
+RUN yarn build
+
+EXPOSE 8086
+
+CMD ["node", "ace", "serve", "--watch"]
