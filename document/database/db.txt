@@ -1,0 +1,118 @@
+table users {
+  id int pk
+  first_name string
+  last_name string
+  full_name string
+  contact json
+  description text
+  email string
+  username string
+  password string
+  status boolean
+  metadata json
+  createdAt datetime
+  updatedAt datetime
+}
+
+
+table roles {
+  id int pk
+  name string unique
+  display_name string
+}
+
+table permissions {
+  id int pk
+  name string unique
+  display_name string
+}
+
+table permission_role {
+  permission_id int pk [ref: < permissions.id]
+  role_id int pk [ref: > roles.id]
+}
+
+table user_role {
+  user_id int pk [ref: < users.id]
+  role_id int pk [ref: > roles.id]
+}
+
+table courses {
+  id int pk
+  user_id int [ref:> users.id]
+  title string
+  slug string unique
+  description text
+  thumbnail string
+  created_at datetime
+  updated_at datetime
+}
+
+table course_contents {
+  id int pk
+  uuid uuid
+  course_id int [ref:> courses.id]
+  parent_id int [ref:> course_contents.id]
+  video_id int [ref:> videos.id]
+  title string
+  description text
+  created_at datetime
+  updated_at datetime
+}
+
+table videos {
+  id int pk
+  uuid uuid
+  video_url string
+  size string
+  mime_type string
+  metadata jsonb
+  created_at datetime
+  updated_at datetime
+}
+
+table media {
+  id int pk
+  module_type string
+  module_id string
+  mime_type string
+  file_url string
+  size string
+  metadata jsonb
+  created_at datetime
+  updated_at datetime
+}
+
+table course_enrollment {
+  id int pk
+  user_id int [ref:> users.id]
+  course_id int [ref:> courses.id]
+  created_at date
+}
+
+table course_completion {
+  id int pk
+  user_id int [ref:> users.id]
+  course_id int [ref:> courses.id]
+  created_at date
+}
+
+table course_content_notes {
+  id int pk
+  course_content_id int [ref:> course_contents.id]
+  user_id int [ref:> users.id]
+  video_timestamp int
+  comment text
+  created_at datetime
+  updated_at datetime
+}
+
+table course_content_progress {
+  id int pk
+  course_content_id int [ref:> course_contents.id]
+  user_id int [ref:> users.id]
+  current_timestamp int
+  current_progress int
+  created_at datetime
+  updated_at datetime
+}
