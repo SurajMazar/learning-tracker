@@ -28,4 +28,19 @@ export default await Env.create(new URL('../', import.meta.url), {
   DB_USER: Env.schema.string(),
   DB_PASSWORD: Env.schema.string.optional(),
   DB_DATABASE: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring the drive package
+  |----------------------------------------------------------
+  */
+  DRIVE_DISK: Env.schema.enum(['minio'] as const),
+  MINIO_HOST: Env.schema.string(),
+  MINIO_PORT: Env.schema.number(),
+  MINIO_KEY: Env.schema.string(),
+  MINIO_SSL: Env.schema.string(),
+  MINIO_SECRET: Env.schema.string(),
+  MINIO_BUCKET: Env.schema.string(),
+  MINIO_REGION: Env.schema.string(),
+  MINIO_USE_PATH_STYLE_ENDPOINT: Env.schema.boolean(),
 })

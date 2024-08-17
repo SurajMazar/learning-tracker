@@ -27,7 +27,7 @@ export const failureResponse = (
   ctx: HttpContext,
   exception: any,
   message: string,
-  data: any = undefined,
+  errors: any = undefined,
   code: number = 400
 ) => {
   /**
@@ -43,8 +43,8 @@ export const failureResponse = (
     message: message,
   }
 
-  if (data) {
-    formattedData['data'] = data
+  if (errors) {
+    formattedData['errors'] = errors
   }
 
   /**

@@ -5,10 +5,13 @@ const RegisterValidator = vine.compile(
   vine.object({
     first_name: vine.string().maxLength(255),
     last_name: vine.string().maxLength(255),
-    email: vine.string().unique(async (db, value) => {
-      const user = await db.from(DatabaseConstant.USERS).where('email', value).first()
-      return !user
-    }),
+    email: vine
+      .string()
+      .email()
+      .unique(async (db, value) => {
+        const user = await db.from(DatabaseConstant.USERS).where('email', value).first()
+        return !user
+      }),
     username: vine.string().unique(async (db, value) => {
       const user = await db.from(DatabaseConstant.USERS).where('username', value).first()
       return !user
