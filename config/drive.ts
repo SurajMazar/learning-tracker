@@ -17,8 +17,8 @@ const driveConfig = defineConfig({
       region: env.get('MINIO_REGION'),
       bucket: env.get('MINIO_BUCKET'),
       visibility: 'public',
-      endpoint: `${env.get('MINIO_HOST')}:${env.get('MINIO_PORT')}`,
-      useFipsEndpoint: env.get('MINIO_USE_PATH_STYLE_ENDPOINT'),
+      endpoint: env.get('MINIO_URL'),
+      forcePathStyle: env.get('MINIO_USE_PATH_STYLE_ENDPOINT'),
     }),
   },
 })

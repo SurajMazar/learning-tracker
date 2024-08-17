@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.string('last_name').nullable()
       table.string('full_name').nullable()
       table.string('email', 254).notNullable().unique()
-      table.string('username').unique()
+      table.string('username').unique().notNullable()
       table.string('password').notNullable()
       table.jsonb('contact').nullable()
       table.text('description').nullable()

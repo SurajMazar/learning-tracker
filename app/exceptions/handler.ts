@@ -4,6 +4,8 @@ import { errors } from '@vinejs/vine'
 import { failureResponse } from '../core/utils/response.utils.js'
 import InvalidCredentialException from '#exceptions/invalid_credential_exception'
 import MessageConstant from '../constants/message.constant.js'
+import { errors as AdonisAuthError } from '@adonisjs/auth'
+import { errors as LucidErrors } from '@adonisjs/lucid'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -27,6 +29,10 @@ export default class HttpExceptionHandler extends ExceptionHandler {
       )
     } else if (error instanceof InvalidCredentialException) {
       return failureResponse(ctx, error, error.message, null, error.status)
+    } else if (error instanceof AdonisAuthError.E_UNAUTHORIZED_ACCESS) {
+      return failureResponse(ctx, error, error?.message, null, error.status)
+    } else if (error instanceof LucidErrors.E_ROW_NOT_FOUND) {
+      return failureResponse(ctx, error, 'Requested data not found.', null, error.status)
     }
     return failureResponse(ctx, error, 'Something went wrong.', null, 400)
   }

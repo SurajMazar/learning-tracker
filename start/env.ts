@@ -35,8 +35,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   |----------------------------------------------------------
   */
   DRIVE_DISK: Env.schema.enum(['minio'] as const),
-  MINIO_HOST: Env.schema.string(),
-  MINIO_PORT: Env.schema.number(),
+  MINIO_URL: Env.schema.string(),
   MINIO_KEY: Env.schema.string(),
   MINIO_SSL: Env.schema.string(),
   MINIO_SECRET: Env.schema.string(),
