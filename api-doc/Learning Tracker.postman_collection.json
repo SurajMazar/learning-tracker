@@ -1,251 +1,223 @@
 {
-	"info": {
-		"_postman_id": "aba5237d-eea3-47c0-b6c2-71484ff0895d",
-		"name": "Learning Tracker",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "15243461"
-	},
-	"item": [
-		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "first_name",
-									"value": "Suraj",
-									"type": "text"
-								},
-								{
-									"key": "last_name",
-									"value": "Thapa",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "suraj.mazar@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "suraz",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "password",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/api/register",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
-									"});",
-									"",
-									"const response = pm.response.json();",
-									"pm.environment.set('token',response.data.token);"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "email",
-									"value": "suraj.mazar@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "password",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/api/login",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"login"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Courses",
-			"item": [
-				{
-					"name": "Create course",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "thumbnail",
-									"type": "file",
-									"src": "/Users/surajthapa/Downloads/455219152_500754002714002_8778122677661897646_n.jpg"
-								},
-								{
-									"key": "title",
-									"value": "This is a test course",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "This is a test course description",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/api/courses/create",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"courses",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "List",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/courses",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"courses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Course",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "title",
-									"value": "This is a test course",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "This is a test course description updated",
-									"type": "text"
-								},
-								{
-									"key": "thumbnail",
-									"type": "file",
-									"src": "/Users/surajthapa/Downloads/455219152_500754002714002_8778122677661897646_n.jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/api/courses/:slug/update",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"courses",
-								":slug",
-								"update"
-							],
-							"variable": [
-								{
-									"key": "slug",
-									"value": "this-is-a-test-course"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "aba5237d-eea3-47c0-b6c2-71484ff0895d",
+    "name": "Learning Tracker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15243461"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "first_name",
+                  "value": "Suraj",
+                  "type": "text"
+                },
+                {
+                  "key": "last_name",
+                  "value": "Thapa",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "suraj.mazar@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "username",
+                  "value": "suraz",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Successful POST request\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+                  "});",
+                  "",
+                  "const response = pm.response.json();",
+                  "pm.environment.set('token',response.data.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "suraj.mazar@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Create course",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "thumbnail",
+                  "type": "file",
+                  "src": "/Users/surajthapa/Downloads/455219152_500754002714002_8778122677661897646_n.jpg"
+                },
+                {
+                  "key": "title",
+                  "value": "This is a test course",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a test course description",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/courses/create",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/courses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Course",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "This is a test course",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a test course description updated",
+                  "type": "text"
+                },
+                {
+                  "key": "thumbnail",
+                  "type": "file",
+                  "src": "/Users/surajthapa/Downloads/455219152_500754002714002_8778122677661897646_n.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/courses/:slug/update",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses", ":slug", "update"],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "this-is-a-test-course"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }

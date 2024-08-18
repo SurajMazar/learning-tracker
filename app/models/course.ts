@@ -8,7 +8,7 @@ import User from '#models/user'
 export default class Course extends BaseModel {
   static search = scope((query, keyword: string | null) => {
     if (keyword) {
-      query.where('publishedOn', 'like', `%${keyword}%`)
+      query.where('title', 'like', `%${keyword}%`)
     }
   })
 
