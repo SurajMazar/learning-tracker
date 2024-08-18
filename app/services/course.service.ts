@@ -5,6 +5,8 @@ import MorphsConstant from '../constants/morphs.constant.js'
 import { MediaService } from '#services/media.service'
 import { cuid } from '@adonisjs/core/helpers'
 import { PER_PAGE } from '#config/app'
+import { MediaTypeConstant } from '../constants/media_type.constant.js'
+import { MediaPathConstant } from '../constants/media_path.constant.js'
 
 export class CourseService {
   protected mediaService: MediaService
@@ -24,6 +26,7 @@ export class CourseService {
       .withScopes((scope) => {
         scope.search(keyword)
       })
+      .orderBy('created_at', 'desc')
       .paginate(page, PER_PAGE)
   }
 
@@ -44,9 +47,10 @@ export class CourseService {
       )
       await this.mediaService.uploadFile(
         data?.thumbnail,
-        'courses/thumbnails',
+        MediaPathConstant.COURSE_THUMBNAIL_PATH,
         MorphsConstant.COURSE,
         course?.id,
+        MediaTypeConstant.COURSE_THUMBNAIL,
         trx
       )
       await trx.commit()
@@ -85,9 +89,10 @@ export class CourseService {
         /* UPLOADING NEW THUMBNAIL */
         await this.mediaService.uploadFile(
           data?.thumbnail,
-          'courses/thumbnails',
+          MediaPathConstant.COURSE_THUMBNAIL_PATH,
           MorphsConstant.COURSE,
           course?.id,
+          MediaTypeConstant.COURSE_THUMBNAIL,
           trx
         )
       }
@@ -98,6 +103,14 @@ export class CourseService {
       await trx.rollback()
       throw exception
     }
+  }
+
+  async show(course_id: number) {
+    return await Course.query()
+      .where('id', '=', course_id)
+      .preload('thumbnail')
+      .preload('user')
+      .firstOrFail()
   }
 
   async generateCourseSlug(slug: string) {

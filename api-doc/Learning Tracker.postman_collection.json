@@ -103,7 +103,7 @@
       "name": "Courses",
       "item": [
         {
-          "name": "Create course",
+          "name": "Create Course",
           "request": {
             "auth": {
               "type": "bearer",
@@ -146,7 +146,7 @@
           "response": []
         },
         {
-          "name": "List",
+          "name": "List Course",
           "request": {
             "auth": {
               "type": "bearer",
@@ -218,6 +218,358 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Course Content",
+      "item": [
+        {
+          "name": "Video",
+          "item": [
+            {
+              "name": "Add Video",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title",
+                      "value": "This is video title.",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "This is video description.",
+                      "type": "text"
+                    },
+                    {
+                      "key": "video_file",
+                      "type": "file",
+                      "src": "/Users/surajthapa/Courses/Art/[FreeCourseSite.com] Udemy - Character Art School Complete Character Drawing Course/1. Introduction/1. Introduction.mp4"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/course-contents/:course_content_id/video",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "course-contents", ":course_content_id", "video"],
+                  "variable": [
+                    {
+                      "key": "course_content_id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Video",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title",
+                      "value": "Updated video title",
+                      "description": "string | required",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "This is test description",
+                      "description": "string | required",
+                      "type": "text"
+                    },
+                    {
+                      "key": "video_file",
+                      "description": "Replaces the previous - if empty does nothing",
+                      "type": "file",
+                      "src": "/Users/surajthapa/Courses/Art/[FreeCourseSite.com] Udemy - Character Art School Complete Character Drawing Course/1. Introduction/2. Always Remember This One Thing.mp4"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/course-contents/:course_content_id/video/:video_id",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "course-contents", ":course_content_id", "video", ":video_id"],
+                  "variable": [
+                    {
+                      "key": "course_content_id",
+                      "value": "1"
+                    },
+                    {
+                      "key": "video_id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Video",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/course-contents/video/:video_id",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "course-contents", "video", ":video_id"],
+                  "variable": [
+                    {
+                      "key": "video_id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "List Course Content",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/course-contents/:course_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course-contents", ":course_id"],
+              "variable": [
+                {
+                  "key": "course_id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Course Content",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "course_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "title",
+                  "value": "This is introduction",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "This is description",
+                  "type": "text"
+                },
+                {
+                  "key": "files[]",
+                  "type": "file",
+                  "src": "/Users/surajthapa/Downloads/455219152_500754002714002_8778122677661897646_n.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/course-contents/create",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course-contents", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Course Content",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "This is course content ",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "test",
+                  "type": "text"
+                },
+                {
+                  "key": "course_id",
+                  "value": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/course-contents/:course_content_id/update",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course-contents", ":course_content_id", "update"],
+              "variable": [
+                {
+                  "key": "course_content_id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add files to Course Content",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files[]",
+                  "type": "file",
+                  "src": "/Users/surajthapa/Downloads/455219152_500754002714002_8778122677661897646_n.jpg"
+                },
+                {
+                  "key": "test",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/course-contents/:course_content_id/files",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course-contents", ":course_content_id", "files"],
+              "variable": [
+                {
+                  "key": "course_content_id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete File",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/course-contents/file/:file_id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "course-contents", "file", ":file_id"],
+              "variable": [
+                {
+                  "key": "file_id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Progress Tracking",
+      "item": []
+    },
+    {
+      "name": "Notes",
+      "item": []
     }
   ]
 }

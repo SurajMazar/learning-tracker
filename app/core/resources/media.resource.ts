@@ -8,9 +8,7 @@ export class MediaResource extends BaseResource<Media> {
     return {
       id: data?.id,
       mime_type: data?.mime_type,
-      file_url: data?.file_url
-        ? this.formatUrl(await drive.use(env.get('DRIVE_DISK')).getUrl(data?.file_url))
-        : null,
+      file_url: data?.file_url ? this.formatUrl(await drive.use().getUrl(data?.file_url)) : null,
       size: data?.size,
     }
   }
