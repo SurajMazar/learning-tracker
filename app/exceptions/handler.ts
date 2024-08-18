@@ -1,6 +1,11 @@
 import app from '@adonisjs/core/services/app'
-import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
+import { ExceptionHandler, HttpContext } from '@adonisjs/core/http'
 import { errors } from '@vinejs/vine'
+import { failureResponse } from '../core/utils/response.utils.js'
+import InvalidCredentialException from '#exceptions/invalid_credential_exception'
+import MessageConstant from '../constants/message.constant.js'
+import { errors as AdonisAuthError } from '@adonisjs/auth'
+import { errors as LucidErrors } from '@adonisjs/lucid'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -15,10 +20,21 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    */
   async handle(error: unknown, ctx: HttpContext) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
-      ctx.response.status(422).send(error.messages)
-      return
+      return failureResponse(
+        ctx,
+        error,
+        MessageConstant.VALIDATION_ERRORS,
+        this.formatValidationError(error.messages),
+        422
+      )
+    } else if (error instanceof InvalidCredentialException) {
+      return failureResponse(ctx, error, error.message, null, error.status)
+    } else if (error instanceof AdonisAuthError.E_UNAUTHORIZED_ACCESS) {
+      return failureResponse(ctx, error, error?.message, null, error.status)
+    } else if (error instanceof LucidErrors.E_ROW_NOT_FOUND) {
+      return failureResponse(ctx, error, 'Requested data not found.', null, error.status)
     }
-    return super.handle(error, ctx)
+    return failureResponse(ctx, error, 'Something went wrong.', null, 400)
   }
 
   /**
@@ -29,5 +45,20 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    */
   async report(error: unknown, ctx: HttpContext) {
     return super.report(error, ctx)
+  }
+
+  /**
+   *
+   * @param errorMessages
+   */
+  formatValidationError(errorMessages: Array<any> = []) {
+    if (errorMessages.length === 0) return []
+
+    return errorMessages.reduce((acc: Record<string, Array<string>>, { field, message }) => {
+      if (field) {
+        acc[field] = acc[field] ? [...acc[field], message] : [message]
+      }
+      return acc
+    }, {})
   }
 }

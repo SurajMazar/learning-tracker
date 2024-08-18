@@ -38,3 +38,5 @@ export const http = defineConfig({
     sameSite: 'lax',
   },
 })
+
+export const PER_PAGE = 10
