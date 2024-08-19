@@ -17,6 +17,9 @@ export default class Media extends BaseModel {
   declare module_id: number
 
   @column()
+  declare type: string
+
+  @column()
   declare mime_type: string | null
 
   @column()

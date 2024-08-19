@@ -8,6 +8,7 @@ export class MediaService {
     path: string,
     moduleType: string,
     moduleId: number,
+    mediaType: string,
     trx: undefined | TransactionClientContract = undefined
   ) {
     if (!file) return null
@@ -22,6 +23,7 @@ export class MediaService {
         size: file?.size,
         module_id: moduleId,
         module_type: moduleType,
+        type: mediaType,
       },
       {
         ...(trx
@@ -33,10 +35,27 @@ export class MediaService {
     )
   }
 
+  /**
+   *
+   * @param media
+   * @param trx
+   */
   async deleteMedia(media: Media, trx: undefined | TransactionClientContract = undefined) {
     if (trx) {
       media = media.useTransaction(trx)
     }
+    await media.delete()
+  }
+
+  /**
+   *
+   * @param mediaId
+   * @param trx
+   */
+  async deleteMediaById(mediaId: number, trx: undefined | TransactionClientContract = undefined) {
+    const media = await Media.query(trx ? { client: trx } : {})
+      .where('id', mediaId)
+      .firstOrFail()
     await media.delete()
   }
 }

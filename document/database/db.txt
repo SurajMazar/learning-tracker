@@ -60,17 +60,6 @@ table course_contents {
   updated_at datetime
 }
 
-table videos {
-  id int pk
-  uuid uuid
-  video_url string
-  size string
-  mime_type string
-  metadata jsonb
-  created_at datetime
-  updated_at datetime
-}
-
 table media {
   id int pk
   module_type string
