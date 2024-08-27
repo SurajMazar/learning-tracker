@@ -33,6 +33,16 @@ router
       return new AuthController().login(ctx)
     })
 
+    router
+      .get('/me', (ctx) => {
+        return new AuthController().authUser(ctx)
+      })
+      .use(
+        middleware.auth({
+          guards: ['api'],
+        })
+      )
+
     /**
      * COURSES RELATED
      */

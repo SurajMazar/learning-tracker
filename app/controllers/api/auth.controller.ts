@@ -44,6 +44,11 @@ export default class AuthController {
     throw new InvalidCredentialException(MessageConstant.INVALID_CREDENTIALS)
   }
 
+  async authUser(ctx: HttpContext) {
+    const authUser = ctx?.auth?.getUserOrFail()
+    return successResponse(ctx, 'Auth user..', authUser)
+  }
+
   /**
    * CREATE AUTH TOKEN
    * @param user

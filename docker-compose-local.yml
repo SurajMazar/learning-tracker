@@ -48,7 +48,7 @@ services:
     container_name: minio_lt
     image: minio/minio:latest
     volumes:
-      - '${MINIO_STORAGE_LOCATION}:/data'
+      - './minio-storage:/data'
     ports:
       - '9000:9000'
       - '9001:9001'
@@ -56,8 +56,8 @@ services:
       - LT_APP
     restart: always
     environment:
-      MINIO_ROOT_USER: '${MINIO_KEY}'
-      MINIO_ROOT_PASSWORD: '${MINIO_SECRET}'
+      MINIO_ROOT_USER: 'minio'
+      MINIO_ROOT_PASSWORD: 'password'
     command: server /data --console-address ":9001"
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
