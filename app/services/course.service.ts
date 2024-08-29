@@ -23,6 +23,7 @@ export class CourseService {
     return Course.query()
       .preload('user')
       .preload('thumbnail')
+      .withCount('courseContents')
       .withScopes((scope) => {
         scope.search(keyword)
       })
@@ -110,6 +111,7 @@ export class CourseService {
       .where('id', '=', course_id)
       .preload('thumbnail')
       .preload('user')
+      .withCount('courseContents')
       .firstOrFail()
   }
 

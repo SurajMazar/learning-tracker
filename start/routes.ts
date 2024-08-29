@@ -54,6 +54,9 @@ router
         router.post('/create', (ctx) => {
           return new CoursesController().create(ctx)
         })
+        router.get('/:course_id', (ctx) => {
+          return new CoursesController().show(ctx)
+        })
         router.patch('/:slug/update', (ctx) => {
           return new CoursesController().update(ctx)
         })

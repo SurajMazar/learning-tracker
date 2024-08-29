@@ -28,6 +28,20 @@ export default class CoursesController {
    *
    * @param ctx
    */
+  async show(ctx: HttpContext) {
+    const course = await this.courseService.show(ctx?.request?.params()?.course_id ?? null)
+
+    return successResponse(
+      ctx,
+      'Courses details.',
+      await new CourseResource().setData(course).serialize()
+    )
+  }
+
+  /**
+   *
+   * @param ctx
+   */
   async create(ctx: HttpContext) {
     const payload = await CourseCreateValidator.validate(ctx.request.all())
     const authUser = ctx?.auth?.getUserOrFail()

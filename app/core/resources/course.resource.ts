@@ -20,6 +20,7 @@ export class CourseResource extends BaseResource<Course> {
             thumbnail: await new MediaResource().setData(data?.thumbnail).serialize(),
           }
         : {}),
+      total_course_contents: Number(data?.$extras?.courseContents_count ?? 0),
     }
   }
 }
